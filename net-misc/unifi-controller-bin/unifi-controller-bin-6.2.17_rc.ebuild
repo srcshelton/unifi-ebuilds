@@ -6,7 +6,7 @@ CHECKREQS_DISK_VAR="1G"
 
 inherit check-reqs l10n unpacker user
 
-#MY_HASH="635f5234a0"
+MY_HASH="ceb3ba714d"
 #MY_DOC="372/2"
 
 MY_P="${P/-bin}"
@@ -27,7 +27,7 @@ RESTRICT="mirror"
 
 LICENSE="GPL-3 UBNT"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 x86"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 PLOCALES="bg ca cs da de_DE el en es_ES fr hu id it ja ka ko mk nb nl pl pt_BR pt_PT ru sk sl sv tr uk zh_CN zh_TW"
 PLOCALE_BACKUP="en"
 IUSE="rpi1 systemd +tools $( for l in ${PLOCALES}; do echo "l10n_${l/_/-}"; done )" # doc
