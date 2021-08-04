@@ -49,6 +49,9 @@ case "${EAPI:-0}" in
 		;;
 	5|6|7)
 		;;
+	8)
+		ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS}"
+		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
 		;;

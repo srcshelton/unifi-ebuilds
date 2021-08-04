@@ -41,7 +41,7 @@ inherit toolchain-funcs
 _PYTHON_ALL_IMPLS=(
 	pypy3
 	python2_7
-	python3_7 python3_8 python3_9
+	python3_{7..10}
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -124,7 +124,7 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-7]|python3_[1-9])
+				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-7]|python3_[1-9]|python3_10)
 					;;
 				*)
 					if has "${i}" "${_PYTHON_ALL_IMPLS[@]}" \
@@ -1112,20 +1112,22 @@ python_fix_shebang() {
 							fi
 							break
 							;;
-						*python[23].[0123456789]|*pypy|*pypy3|*jython[23].[0123456789])
+						*python[23].[0-9]|*python3.[1-9][0-9]|*pypy|*pypy3|*jython[23].[0-9])
 							# Explicit mismatch.
 							if [[ ! ${force} ]]; then
 								error=1
 							else
 								case "${i}" in
-									*python[23].[0123456789])
-										from="python[23].[0123456789]";;
+									*python[23].[0-9])
+										from="python[23].[0-9]";;
+									*python3.[1-9][0-9])
+										from="python3.[1-9][0-9]";;
 									*pypy)
 										from="pypy";;
 									*pypy3)
 										from="pypy3";;
-									*jython[23].[0123456789])
-										from="jython[23].[0123456789]";;
+									*jython[23].[0-9])
+										from="jython[23].[0-9]";;
 									*)
 										die "${FUNCNAME}: internal error in 2nd pattern match";;
 								esac

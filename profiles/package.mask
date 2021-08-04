@@ -1,0 +1,5 @@
+# Mask packages which the eclasses in this repo can no longer support
+
+>dev-python/setuptools-57.0.0
+
+# vi: set syntax=gentoo-package-mask:
