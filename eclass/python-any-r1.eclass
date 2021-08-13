@@ -40,6 +40,7 @@
 case "${EAPI:-0}" in
 	[0-4]) die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
 	[5-7]) ;;
+	8)     ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS}" ;;
 	*)     die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}" ;;
 esac
 
