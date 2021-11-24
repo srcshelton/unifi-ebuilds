@@ -28,7 +28,7 @@ RDEPEND=">=app-arch/snappy-1.1.3
 	>=dev-cpp/yaml-cpp-0.5.3
 	>=dev-libs/boost-1.60:=[threads(+)]
 	>=dev-libs/libpcre-8.41[cxx]
-	dev-libs/snowball-stemmer
+	=dev-libs/snowball-stemmer-0*
 	net-libs/libpcap
 	>=sys-libs/zlib-1.2.8:=
 	mms-agent? ( app-admin/mms-agent )
