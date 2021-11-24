@@ -36,7 +36,7 @@ BDEPEND="
 #"
 # installing plugins apparently breaks stuff at runtime, so let's pull
 # it early
-PDEPEND="=dev-python/certifi-10001"
+PDEPEND="=dev-python/certifi-0.10001"
 #	>=dev-python/certifi-2016.9.26[${PYTHON_USEDEP}]
 #	$(python_gen_cond_dep '
 #		dev-python/setuptools_scm[${PYTHON_USEDEP}]
