@@ -42,6 +42,9 @@ case ${EAPI:-0} in
 				;;
 		esac
 		_CMAKE_ECLASS_IMPL=${CMAKE_ECLASS}
+		if [[ ${EAPI} == 8 ]]; then
+			ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS} when evaluating '${CATEGORY}/${P}'"
+		fi
 		;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac

@@ -37,7 +37,7 @@ case "${EAPI:-0}" in
 		# EAPI=5 is required for sane USE_EXPAND dependencies
 		;;
 	8)
-		ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS}"
+		ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS} when evaluating '${CATEGORY}/${P}'"
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"

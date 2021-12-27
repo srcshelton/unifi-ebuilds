@@ -98,7 +98,8 @@ _CMAKE_ECLASS=1
 # Helps in improving QA of build systems that write to source tree.
 
 case ${EAPI} in
-	7|8) ;;
+	7) ;;
+	8) ewarn "Unsupported EAPI=${EAPI:-0} (too new) for ${ECLASS} when evaluating '${CATEGORY}/${P}'" ;;
 	*) die "EAPI=${EAPI:-0} is not supported" ;;
 esac
 
