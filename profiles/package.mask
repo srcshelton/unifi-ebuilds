@@ -2,4 +2,12 @@
 
 >dev-python/setuptools-57.0.0
 
+# These revisions have PDEPEND='>=sys-apps/file-5.41'...
+#>=sys-apps/portage-3.0.18
+#>=sys-apps/portage-3.0.20-r6
+#>=sys-apps/portage-3.0.28-r1
+#>=sys-apps/portage-3.0.29
+#>=sys-apps/portage-3.0.30-r1
+#=sys-apps/portage-9999
+
 # vi: set syntax=gentoo-package-mask:
