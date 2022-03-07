@@ -1,5 +1,6 @@
 # Mask packages which the eclasses in this repo can no longer support
 
+>app-arch/snappy-1.1.9
 >dev-python/setuptools-57.0.0
 
 # These revisions have PDEPEND='>=sys-apps/file-5.41'...
