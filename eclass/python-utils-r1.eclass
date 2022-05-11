@@ -17,8 +17,11 @@
 # functions. It can be inherited safely.
 #
 # For more information, please see the Python Guide:
-# https://dev.gentoo.org/~mgorny/python-guide/
+# https://projects.gentoo.org/python/guide/
 
+# NOTE: When dropping support for EAPIs here, we need to update
+# metadata/install-qa-check.d/60python-pyc
+# See bug #704286, bug #781878
 case "${EAPI:-0}" in
 	[0-4]) die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
 	[5-7]) ;;
@@ -35,7 +38,7 @@ if [[ ! ${_PYTHON_UTILS_R1} ]]; then
 [[ ${EAPI} == 5 ]] && inherit eutils multilib
 inherit toolchain-funcs
 
-# @ECLASS-VARIABLE: _PYTHON_ALL_IMPLS
+# @ECLASS_VARIABLE: _PYTHON_ALL_IMPLS
 # @INTERNAL
 # @DESCRIPTION:
 # All supported Python implementations, most preferred last.
@@ -46,7 +49,7 @@ _PYTHON_ALL_IMPLS=(
 )
 readonly _PYTHON_ALL_IMPLS
 
-# @ECLASS-VARIABLE: _PYTHON_HISTORICAL_IMPLS
+# @ECLASS_VARIABLE: _PYTHON_HISTORICAL_IMPLS
 # @INTERNAL
 # @DESCRIPTION:
 # All historical Python implementations that are no longer supported.
@@ -58,7 +61,7 @@ _PYTHON_HISTORICAL_IMPLS=(
 )
 readonly _PYTHON_HISTORICAL_IMPLS
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT_NO_STRICT
+# @ECLASS_VARIABLE: PYTHON_COMPAT_NO_STRICT
 # @INTERNAL
 # @DESCRIPTION:
 # Set to a non-empty value in order to make eclass tolerate (ignore)
@@ -81,7 +84,11 @@ _python_verify_patterns() {
 
 	local impl pattern
 	for pattern; do
-		[[ ${pattern} == -[23] ]] && continue
+		case ${pattern} in
+			-[23]|3.[89]|3.1[01])
+				continue
+				;;
+		esac
 
 		for impl in "${_PYTHON_ALL_IMPLS[@]}" "${_PYTHON_HISTORICAL_IMPLS[@]}"
 		do
@@ -125,7 +132,7 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-7]|python3_[1-9]|python3_10)
+				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-7]|python3_[1-9]|python3_1[01])
 					;;
 				*)
 					if has "${i}" "${_PYTHON_ALL_IMPLS[@]}" \
@@ -150,7 +157,13 @@ _python_set_impls() {
 	done
 
 	if [[ ! ${supp[@]} ]]; then
-		die "No supported implementation in PYTHON_COMPAT."
+		# special-case python2_7 for python-any-r1
+		if [[ ${_PYTHON_ALLOW_PY27} ]] && has python2_7 "${PYTHON_COMPAT[@]}"
+		then
+			supp+=( python2_7 )
+		else
+			die "No supported implementation in PYTHON_COMPAT."
+		fi
 	fi
 
 	if [[ ${_PYTHON_SUPPORTED_IMPLS[@]} ]]; then
@@ -182,16 +195,15 @@ _python_set_impls() {
 # of the patterns following it. Return 0 if it does, 1 otherwise.
 # Matches if no patterns are provided.
 #
-# <impl> can be in PYTHON_COMPAT or EPYTHON form. The patterns can be
-# either:
-# a) fnmatch-style patterns, e.g. 'python2*', 'pypy'...
-# b) '-2' to indicate all Python 2 variants (= !python_is_python3)
-# c) '-3' to indicate all Python 3 variants (= python_is_python3)
+# <impl> can be in PYTHON_COMPAT or EPYTHON form. The patterns
+# can either be fnmatch-style or stdlib versions, e.g. "3.8", "3.9".
+# In the latter case, pypy3 will match if there is at least one pypy3
+# version matching the stdlib version.
 _python_impl_matches() {
 	[[ ${#} -ge 1 ]] || die "${FUNCNAME}: takes at least 1 parameter"
 	[[ ${#} -eq 1 ]] && return 0
 
-	local impl=${1} pattern
+	local impl=${1/./_} pattern
 	shift
 
 	for pattern; do
@@ -209,7 +221,7 @@ _python_impl_matches() {
 	return 1
 }
 
-# @ECLASS-VARIABLE: PYTHON
+# @ECLASS_VARIABLE: PYTHON
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The absolute path to the current Python interpreter.
@@ -228,7 +240,7 @@ _python_impl_matches() {
 # /usr/bin/python2.7
 # @CODE
 
-# @ECLASS-VARIABLE: EPYTHON
+# @ECLASS_VARIABLE: EPYTHON
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The executable name of the current Python interpreter.

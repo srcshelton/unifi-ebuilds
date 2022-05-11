@@ -57,7 +57,7 @@ case "${EAPI:-0}" in
 		;;
 esac
 
-# @ECLASS-VARIABLE: DISTUTILS_OPTIONAL
+# @ECLASS_VARIABLE: DISTUTILS_OPTIONAL
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # If set to a non-null value, distutils part in the ebuild will
@@ -69,7 +69,7 @@ esac
 # distutils-r1 default phase functions or call the build system
 # manually.
 
-# @ECLASS-VARIABLE: DISTUTILS_SINGLE_IMPL
+# @ECLASS_VARIABLE: DISTUTILS_SINGLE_IMPL
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # If set to a non-null value, the ebuild will support setting a single
@@ -80,7 +80,7 @@ esac
 # to be exported. It must be run in order for the eclass functions
 # to function properly.
 
-# @ECLASS-VARIABLE: DISTUTILS_USE_SETUPTOOLS
+# @ECLASS_VARIABLE: DISTUTILS_USE_SETUPTOOLS
 # @PRE_INHERIT
 # @DESCRIPTION:
 # Controls adding dev-python/setuptools dependency.  The allowed values
@@ -159,7 +159,7 @@ _distutils_set_globals() {
 [[ ! ${DISTUTILS_OPTIONAL} ]] && _distutils_set_globals
 unset -f _distutils_set_globals
 
-# @ECLASS-VARIABLE: PATCHES
+# @ECLASS_VARIABLE: PATCHES
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # An array containing patches to be applied to the sources before
@@ -175,7 +175,7 @@ unset -f _distutils_set_globals
 # PATCHES=( "${FILESDIR}"/${P}-make-gentoo-happy.patch )
 # @CODE
 
-# @ECLASS-VARIABLE: DOCS
+# @ECLASS_VARIABLE: DOCS
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # An array containing documents installed using dodoc. The files listed
@@ -191,7 +191,7 @@ unset -f _distutils_set_globals
 # DOCS=( NEWS README )
 # @CODE
 
-# @ECLASS-VARIABLE: HTML_DOCS
+# @ECLASS_VARIABLE: HTML_DOCS
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # An array containing documents installed using dohtml. The files
@@ -205,7 +205,7 @@ unset -f _distutils_set_globals
 # HTML_DOCS=( doc/html/. )
 # @CODE
 
-# @ECLASS-VARIABLE: EXAMPLES
+# @ECLASS_VARIABLE: EXAMPLES
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # OBSOLETE: this variable is deprecated and banned in EAPI 6
@@ -225,7 +225,7 @@ unset -f _distutils_set_globals
 # EXAMPLES=( examples/. demos/. )
 # @CODE
 
-# @ECLASS-VARIABLE: DISTUTILS_IN_SOURCE_BUILD
+# @ECLASS_VARIABLE: DISTUTILS_IN_SOURCE_BUILD
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # If set to a non-null value, in-source builds will be enabled.
@@ -241,7 +241,7 @@ unset -f _distutils_set_globals
 # 'build --build-base ${BUILD_DIR}' to enforce keeping & using built
 # files in the specific root.
 
-# @ECLASS-VARIABLE: DISTUTILS_ALL_SUBPHASE_IMPLS
+# @ECLASS_VARIABLE: DISTUTILS_ALL_SUBPHASE_IMPLS
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # An array of patterns specifying which implementations can be used
@@ -272,7 +272,7 @@ unset -f _distutils_set_globals
 # }
 # @CODE
 
-# @ECLASS-VARIABLE: mydistutilsargs
+# @ECLASS_VARIABLE: mydistutilsargs
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # An array containing options to be passed to setup.py.

@@ -19,14 +19,14 @@
 # in multilib-minimal, yet they ought to call appropriate cmake
 # phase rather than 'default'.
 
-# @ECLASS-VARIABLE: CMAKE_ECLASS
+# @ECLASS_VARIABLE: CMAKE_ECLASS
 # @PRE_INHERIT
 # @DESCRIPTION:
 # Default is "cmake-utils" for compatibility in EAPI-7. Specify "cmake" for
 # ebuilds that ported to cmake.eclass already. Future EAPI is "cmake" only.
 : ${CMAKE_ECLASS:=cmake-utils}
 
-# @ECLASS-VARIABLE: _CMAKE_ECLASS_IMPL
+# @ECLASS_VARIABLE: _CMAKE_ECLASS_IMPL
 # @INTERNAL
 # @DESCRIPTION:
 # Default is "cmake" for future EAPI. Cleanup once EAPI-7 support is gone.

@@ -20,7 +20,7 @@
 if [[ -z ${_CMAKE_ECLASS} ]]; then
 _CMAKE_ECLASS=1
 
-# @ECLASS-VARIABLE: BUILD_DIR
+# @ECLASS_VARIABLE: BUILD_DIR
 # @DESCRIPTION:
 # Build directory where all cmake processed files should be generated.
 # For in-source build it's fixed to ${CMAKE_USE_DIR}.
@@ -28,12 +28,12 @@ _CMAKE_ECLASS=1
 # ${WORKDIR}/${P}_build.
 : ${BUILD_DIR:=${WORKDIR}/${P}_build}
 
-# @ECLASS-VARIABLE: CMAKE_BINARY
+# @ECLASS_VARIABLE: CMAKE_BINARY
 # @DESCRIPTION:
 # Eclass can use different cmake binary than the one provided in by system.
 : ${CMAKE_BINARY:=cmake}
 
-# @ECLASS-VARIABLE: CMAKE_BUILD_TYPE
+# @ECLASS_VARIABLE: CMAKE_BUILD_TYPE
 # @DESCRIPTION:
 # Set to override default CMAKE_BUILD_TYPE. Only useful for packages
 # known to make use of "if (CMAKE_BUILD_TYPE MATCHES xxx)".
@@ -42,12 +42,12 @@ _CMAKE_ECLASS=1
 # build-type specific compiler flags overriding make.conf.
 : ${CMAKE_BUILD_TYPE:=Gentoo}
 
-# @ECLASS-VARIABLE: CMAKE_IN_SOURCE_BUILD
+# @ECLASS_VARIABLE: CMAKE_IN_SOURCE_BUILD
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # Set to enable in-source build.
 
-# @ECLASS-VARIABLE: CMAKE_MAKEFILE_GENERATOR
+# @ECLASS_VARIABLE: CMAKE_MAKEFILE_GENERATOR
 # @PRE_INHERIT
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -56,32 +56,32 @@ _CMAKE_ECLASS=1
 # The default is set to "ninja".
 : ${CMAKE_MAKEFILE_GENERATOR:=ninja}
 
-# @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES_LIST
+# @ECLASS_VARIABLE: CMAKE_REMOVE_MODULES_LIST
 # @DESCRIPTION:
 # Array of CMake modules that will be removed in $S during src_prepare,
 # in order to force packages to use the system version.
 # Set to "none" to disable removing modules entirely.
 : ${CMAKE_REMOVE_MODULES_LIST:=FindBLAS FindLAPACK}
 
-# @ECLASS-VARIABLE: CMAKE_USE_DIR
+# @ECLASS_VARIABLE: CMAKE_USE_DIR
 # @DESCRIPTION:
 # Sets the directory where we are working with cmake, for example when
 # application uses autotools and only one plugin needs to be done by cmake.
 # By default it uses ${S}.
 
-# @ECLASS-VARIABLE: CMAKE_VERBOSE
+# @ECLASS_VARIABLE: CMAKE_VERBOSE
 # @DESCRIPTION:
 # Set to OFF to disable verbose messages during compilation
 : ${CMAKE_VERBOSE:=ON}
 
-# @ECLASS-VARIABLE: CMAKE_WARN_UNUSED_CLI
+# @ECLASS_VARIABLE: CMAKE_WARN_UNUSED_CLI
 # @DESCRIPTION:
 # Warn about variables that are declared on the command line
 # but not used. Might give false-positives.
 # "no" to disable (default) or anything else to enable.
 : ${CMAKE_WARN_UNUSED_CLI:=yes}
 
-# @ECLASS-VARIABLE: CMAKE_EXTRA_CACHE_FILE
+# @ECLASS_VARIABLE: CMAKE_EXTRA_CACHE_FILE
 # @USER_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -89,7 +89,7 @@ _CMAKE_ECLASS=1
 # for econf and is needed to pass TRY_RUN results when cross-compiling.
 # Should be set by user in a per-package basis in /etc/portage/package.env.
 
-# @ECLASS-VARIABLE: CMAKE_QA_SRC_DIR_READONLY
+# @ECLASS_VARIABLE: CMAKE_QA_SRC_DIR_READONLY
 # @USER_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
