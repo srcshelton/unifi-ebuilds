@@ -45,7 +45,7 @@ inherit toolchain-funcs
 _PYTHON_ALL_IMPLS=(
 	pypy3
 	python2_7
-	python3_{7..10}
+	python3_{7..11}
 )
 readonly _PYTHON_ALL_IMPLS
 
