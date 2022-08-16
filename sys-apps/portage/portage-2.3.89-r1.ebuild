@@ -1,7 +1,7 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 DISTUTILS_USE_SETUPTOOLS=no
 PYTHON_COMPAT=(
@@ -54,10 +54,8 @@ RDEPEND="
 			>=app-crypt/gnupg-2.2.4-r2[ssl(-)]
 		)
 	)
-	elibc_FreeBSD? ( sys-freebsd/freebsd-bin )
 	elibc_glibc? ( >=sys-apps/sandbox-2.2 )
 	elibc_musl? ( >=sys-apps/sandbox-2.2 )
-	elibc_uclibc? ( >=sys-apps/sandbox-2.2 )
 	kernel_linux? ( sys-apps/util-linux )
 	>=app-misc/pax-utils-0.1.17
 	selinux? ( >=sys-libs/libselinux-2.0.94[python,${PYTHON_USEDEP}] )
