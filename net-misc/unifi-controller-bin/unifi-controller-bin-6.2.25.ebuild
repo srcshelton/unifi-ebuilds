@@ -4,7 +4,7 @@
 EAPI=7
 CHECKREQS_DISK_VAR="1G"
 
-inherit check-reqs l10n unpacker user
+inherit check-reqs l10n unpacker
 
 #MY_HASH="ceb3ba714d"
 #MY_DOC="372/2"

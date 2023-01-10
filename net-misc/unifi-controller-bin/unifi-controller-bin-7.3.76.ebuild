@@ -6,7 +6,7 @@ CHECKREQS_DISK_VAR="1G"
 
 inherit check-reqs l10n unpacker
 
-#MY_HASH="635f5234a0"
+#MY_HASH="ceb3ba714d"
 #MY_DOC="372/2"
 
 MY_P="${P/-bin}"
@@ -39,9 +39,13 @@ IUSE="rpi1 systemd +tools $( for l in ${PLOCALES}; do echo "l10n_${l/_/-}"; done
 #  curl
 #  jsvc (>=1.0.8)
 #  libcap2
+#  logrotate
 #  mongodb-server (>= 2.4.10) | mongodb-10gen (>= 2.4.14) | mongodb-org-server (>= 2.6.0),
-#  mongodb-server (<< 1:3.6.0) | mongodb-10gen (<< 3.6.0) | mongodb-org-server (<< 3.6.0),
-#  java8-runtime-headless
+#  mongodb-server (<< 1:4.0.0) | mongodb-10gen (<< 4.0.0) | mongodb-org-server (<< 4.0.0),
+#  java8-runtime-headless | java11-runtime-headless
+#
+# (... which is curious as Ubiquiti still state that this package is not
+# compatible with Java 9 or later)
 #
 # The version of mongodb bundled with the Mac edition is v2.4.14 at the moment,
 # but currently the oldest ebuild (and only v2.x) is v2.6.12.  The default
@@ -52,17 +56,22 @@ IUSE="rpi1 systemd +tools $( for l in ${PLOCALES}; do echo "l10n_${l/_/-}"; done
 #
 # Ubiquiti recommend the use of MongoDB 3.4.x.
 #
-# ... which is now deprecated.  However, it is widely reported that the only issue with
-# MongoDB 3.6.x is that the '--nohttpinterface' option is now deprecated, and causes an
-# error if used.  The Ubiquiti code, of course, hard-codes this :(
+# ... which is now deprecated.  However, it is widely reported that the only
+# issue with MongoDB 3.6.x is that the '--nohttpinterface' option is now
+# deprecated, and causes an error if used.  The Ubiquiti code, of course,
+# hard-codes this :(
 #
-# Worse, even though Ubiquiti's software worked unofficially with MongoDB 4.0, it's still
-# using ancient mongodb-3.4 Java libraries to connect to mongo, and MongoDB 4.2
-# is no longer compatible >:(
+# Update:
+# "We support MongoDB 3.6 since 5.13.10, older UniFi Network Application
+# versions only support up to MongoDB 3.4."
+#
+# Worse, even though Ubiquiti's software worked unofficially with MongoDB 4.0,
+# it's still using ancient mongodb-3.4 Java libraries to connect to mongo, and
+# MongoDB 4.2 is no longer compatible >:(
 #
 DEPEND="
-	>=virtual/jre-1.8.0
-	<virtual/jre-1.9.0
+	>=virtual/jre-11
+	<virtual/jre-12
 	>=dev-db/mongodb-3.6
 	<dev-db/mongodb-4.2
 	acct-group/unifi
@@ -209,7 +218,8 @@ src_install() {
 	local l=''
 
 	insinto /opt/"${MY_P}"
-	# As of 6.0.41, usr/lib/unifi contains 'dl lib webapps'
+	# As of 6.4.54, usr/lib/unifi contains 'bin conf dl lib webapps'; 'conf' is
+	# empty, 'bin' contains 'ubnt-apttool' (both removed above):
 	doins -r usr/lib/unifi/* || die "Installation failed"
 
 	keepdir /var/lib/unifi/data
@@ -298,14 +308,6 @@ pkg_postinst() {
 	elog "    set-inform http://<controller IP>:<new port>/inform"
 	elog
 	elog "... before they will be able to reconnect."
-
-	if has_version '>=dev-java/oracle-jdk-bin-1.8.0.151' && has_version '<dev-java/oracle-jdk-bin-1.8.0.162'; then
-		elog
-		ewarn "Oracle Java SDK releases 1.8.0r151 to 1.8.0r161 prevent the"
-		ewarn "UniFi Guest Portal from operating correctly - please upgrade"
-		ewarn "or downgrade your Java installation to avoid this issue"
-	fi
-
 	elog
 	ewarn "From ${PN}-5.6.20, the default behaviour is to immediately"
 	ewarn "attempt to allocate 1GB of memory on startup.  If running on a"
