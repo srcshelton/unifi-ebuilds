@@ -172,12 +172,12 @@ multilib_src_configure() {
 			--disable-login
 			--disable-nologin
 			--disable-pylibmount
+			--disable-raw  # Gone since linux-headers-5.14
 			--disable-su
 			--enable-agetty
 			--enable-bash-completion
 			--enable-line
 			--enable-partx
-			--enable-raw
 			--enable-rename
 			--enable-rfkill
 			--enable-schedutils
